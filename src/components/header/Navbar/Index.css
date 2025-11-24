@@ -1,0 +1,93 @@
+.navbar {
+  display: flex;
+  justify-content: space-between; /* separa esquerda e direita */
+  align-items: center;
+  width: 100%;
+  padding: 12px 20px;
+  background: linear-gradient(90deg, #38de80, #099c41);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Container dos botões da esquerda */
+.nav-left {
+  display: flex;
+  gap: 20px;
+}
+
+/* Container do login à direita */
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+/* ============================
+   BOTÕES PADRÃO DO NAVBAR
+   ============================ */
+.nav-button {
+  position: relative;
+  padding: 10px 22px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.nav-button::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 3px;
+  background: white;
+  left: 50%;
+  bottom: 0;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.nav-button:hover {
+  color: #d1f0ff;
+}
+
+.nav-button:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+.nav-button:focus {
+  outline: 2px solid #d1f0ff;
+  outline-offset: 2px;
+}
+
+/* ============================
+   BOTÃO DE LOGIN (direita)
+   ============================ */
+.login-button,
+.logout-button {
+  padding: 10px 22px;
+  background-color: white;
+  color: #099c41;
+  font-weight: 700;
+  font-size: 1.05rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.login-button:hover,
+.logout-button:hover {
+  background-color: #d1f0ff;
+  transform: scale(1.05);
+}
+
+.login-button:focus,
+.logout-button:focus {
+  outline: 2px solid #d1f0ff;
+  outline-offset: 2px;
+}

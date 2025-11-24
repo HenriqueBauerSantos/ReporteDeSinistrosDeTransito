@@ -1,0 +1,204 @@
+
+.edit-sinistro-container {
+  margin: 40px auto;
+  max-width: 1200px;
+  padding: 25px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: "Segoe UI", sans-serif;
+  color: #222;
+}
+
+.edit-sinistro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.edit-sinistro-header h2 {
+  color: #0275d8;
+  font-size: 1.8rem;
+}
+
+.edit-sinistro-header .btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-sinistro-header button {
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+  color: #fff;
+}
+
+.btn-salvar {
+  background-color: #0275d8;
+}
+.btn-salvar:hover {
+  background-color: #025aa5;
+}
+
+.btn-cancelar {
+  background-color: #d9534f;
+}
+.btn-cancelar:hover {
+  background-color: #c9302c;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 15px;
+  width: 100%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #0275d8;
+  box-shadow: 0 0 0 2px rgba(2,117,216,0.15);
+  outline: none;
+}
+
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.form-actions button {
+  min-width: 140px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  color: #fff;
+}
+
+.form-actions button[type="submit"] {
+  background-color: #0275d8;
+}
+.form-actions button[type="submit"]:hover {
+  background-color: #025aa5;
+}
+
+.form-actions button[type="button"] {
+  background-color: #d9534f;
+}
+.form-actions button[type="button"]:hover {
+  background-color: #c9302c;
+}
+
+
+.vehicles-list,
+.people-list {
+  margin-top: 20px;
+}
+
+.vehicle-item,
+.person-item {
+  background-color: #f5f5f5;
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.vehicle-item span,
+.person-item span {
+  font-weight: 500;
+}
+
+.vehicle-item button,
+.person-item button {
+  background-color: #d9534f;
+  border: none;
+  padding: 5px 10px;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.vehicle-item button:hover,
+.person-item button:hover {
+  background-color: #c9302c;
+}
+
+
+h3, h2 {
+  padding-top: 20px;
+  color: #0275d8;
+}
+
+
+.edit-mode-highlight {
+  border: 2px solid #0275d8;
+  background-color: #f7fbff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+
+.edit-info {
+  text-align: center;
+  font-style: italic;
+  color: #555;
+  margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+  .edit-sinistro-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .form-actions {
+    flex-direction: column;
+  }
+}

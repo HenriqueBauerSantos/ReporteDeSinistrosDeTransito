@@ -1,0 +1,19 @@
+.vehicle-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.vehicle-item button.delete-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #d9534f;
+  transition: color 0.2s;
+}
+
+.vehicle-item button.delete-btn:hover {
+  color: #b52b27;
+}

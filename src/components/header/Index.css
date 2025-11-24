@@ -1,0 +1,44 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #ecf1ee;
+  width: 100vw;
+  box-sizing: border-box;
+}
+
+.header-content {
+  padding: 20px;
+  width: 100%;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 15px;
+}
+.logo {
+  width: 120px;
+  height: auto;
+  margin-right: 15px;
+}
+
+.nameText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sitemTitle {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.sistemDescripton {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #555;
+}

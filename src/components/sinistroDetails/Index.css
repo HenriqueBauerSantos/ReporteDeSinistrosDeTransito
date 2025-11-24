@@ -1,0 +1,115 @@
+.sinistro-details-container {
+  margin: 40px auto;
+  padding: 20px;
+  font-family: "Segoe UI", sans-serif;
+  color: #222;
+}
+
+.header-sinistro{
+  padding: 20px;
+  background-color: #ecf1ee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+.details-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.details-header h2 {
+  font-size: 1.8rem;
+  color: #2bc86f;
+}
+
+.btn-voltar,
+.btn-editar {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-voltar {
+  background-color: #ccc;
+  color: #222;
+}
+
+.btn-voltar:hover {
+  background-color: #b0b0b0;
+}
+
+.btn-editar {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+.btn-editar:hover {
+  background-color: #0b5ed7;
+}
+
+.card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.card h3 {
+  color: #1f2937;
+  margin-bottom: 15px;
+  border-left: 4px solid #2bc86f;
+  padding-left: 8px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 10px;
+}
+
+.descricao {
+  margin-top: 15px;
+  font-style: italic;
+  color: #444;
+}
+
+.mapa {
+  margin-top: 15px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tabela-pessoas {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.tabela-pessoas th,
+.tabela-pessoas td {
+  border-bottom: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.tabela-pessoas th {
+  background-color: #f3f4f6;
+  color: #1e293b;
+}
+
+.tabela-pessoas tr:hover {
+  background-color: #f9fafb;
+}

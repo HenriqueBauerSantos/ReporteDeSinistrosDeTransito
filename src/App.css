@@ -1,0 +1,182 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  /* evita rolagem lateral */
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f5f5f5;
+}
+
+/* === ESTRUTURA GERAL DO APP === */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.body-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  background-color: #f9f9f9;
+}
+
+/* Mantém conteúdo centralizado e com limite de largura */
+section,
+main,
+article,
+.card,
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Responsividade básica */
+@media (max-width: 768px) {
+  .body-container {
+    padding: 10px;
+  }
+
+  section,
+  main,
+  article,
+  .card,
+  .container {
+    padding: 0 10px;
+  }
+}
+
+/* === ESTILOS DE FORMULÁRIOS === */
+.app-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-container textarea {
+  height: 100px;
+  resize: vertical;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+  width: 500px;
+}
+
+.form-group label {
+  font-weight: 500;
+  padding: 10px;
+}
+
+.form-group input,
+textarea {
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16),
+    0 3px 6px rgba(0, 0, 0, 0.23);
+  outline: 1px solid #444;
+}
+
+.form-group button {
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  color: #eee;
+  background-color: #099c41;
+  font-weight: 500;
+  font-size: 1rem;
+  margin-top: 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16),
+    0 3px 6px rgba(0, 0, 0, 0.23);
+  transition: all 500ms ease;
+  cursor: pointer;
+}
+
+.form-group button:hover {
+  background-color: #0bb74e;
+}
+
+/* === GRUPO DE CHECKBOX === */
+.checkbox-group label {
+  font-size: 0.825rem;
+  margin-left: 10px;
+}
+
+/* === SOBRE === */
+.about-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  line-height: 1.6;
+  color: #333333;
+}
+
+.about-container h1 {
+  font-size: 2rem;
+  color: #0d3b66;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.about-container p {
+  font-size: 1.05rem;
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+.about-container ol {
+  padding-left: 20px;
+  margin-bottom: 15px;
+}
+
+.about-container ol li {
+  margin-bottom: 10px;
+}
+
+.about-container strong {
+  color: #0d3b66;
+}
+
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 15px;
+  background-color: #0d3b66;
+  color: #fff;
+  font-size: 0.9rem;
+  margin-top: auto;
+}
+
+
