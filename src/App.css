@@ -179,4 +179,30 @@ footer {
   margin-top: auto;
 }
 
+.stander-sinistro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
 
+.stander-sinistro-header h2 {
+  color: #126f36;
+  font-size: 1.8rem;
+}
+
+.stander-sinistro-header .btn-group {
+  display: flex;
+  gap: 10px;
+  padding-top: 15px;
+}
+
+.stander-sinistro-header button {
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+  color: #282525;
+  background-color: 099c41;
+}

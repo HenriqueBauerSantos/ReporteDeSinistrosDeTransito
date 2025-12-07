@@ -6,12 +6,10 @@ import { Person } from "../../model/Person";
 import { Vehicle } from "../../model/Vehicle";
 import { Accident } from "../../model/Accident";
 import { AccidentAddress } from "../../model/AccidentAddress";
-import { MapPicker } from "../localization/SinistroMarker/MapPicker";
 import { VehiclePersonManager } from "../VehiclePersonManager/Index";
 import { Api } from "../../Services/Api";
-import { mapAccidentToApi } from "../../Services/MapAccidentToApi";
 import { MapSinistroApiToModel } from "../../mappers/SinistroMapper";
-import { v4 as uuidv4 } from "uuid";
+import { VehiclePersonModal } from "../VehiclePersonForm/SinistroPersonModal";
 
 /* Enums */
 import { SinistroType, SinistroTypeLabel } from "../../enums/SinistroType";
@@ -21,6 +19,7 @@ import { GroundType, GroundTypeLabel } from "../../enums/GroundType";
 import { Weather, WeatherLabel } from "../../enums/Weather";
 import { EnumSelect } from "../GeneralComponents/EnumSelect";
 import { LoadingMessage } from "../LoadingMessage/Index";
+import { MapAccidentToUpdate } from "../../Services/MapAccidentToUpdate";
 
 /* Tipo do formulário */
 type SinistroFormData = {
@@ -39,8 +38,7 @@ type SinistroFormData = {
     roadType: RoadType;
     groundType: GroundType;
     weather: Weather;
-    latitude: number;
-    longitude: number;
+
 };
 
 export const SinistroEdit = () => {
@@ -48,18 +46,21 @@ export const SinistroEdit = () => {
     const navigate = useNavigate();
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<SinistroFormData>();
 
+    const [accidentAddress, setAccidentAddress] = useState<AccidentAddress | null>(null);
     const [vehicles, setVehicles] = useState<Vehicle[]>([]);
     const [persons, setPersons] = useState<Person[]>([]);
     const [loading, setLoading] = useState(true);
-    const [lat, setLat] = useState<number | null>(null);
-    const [lng, setLng] = useState<number | null>(null);
+
+    const [showVehicleForm, setShowVehicleForm] = useState(false);
 
     /* Carregar dados existentes do sinistro */
     useEffect(() => {
         const fetchSinistro = async () => {
             try {
                 const response = await Api.get(`/sinistros/${id}`);
+                console.log("API sinistro:", response.data);
                 const sinistro = MapSinistroApiToModel(response.data);
+
 
                 // Preencher campos do formulário
                 setValue("date", sinistro.date.split("T")[0]);
@@ -71,25 +72,12 @@ export const SinistroEdit = () => {
                 setValue("weather", sinistro.weather);
                 setValue("accidentDescription", sinistro.sinistroDescription);
 
-                // Endereço
-                const addr = sinistro.sinistroAddress;
-                if (addr) {
-                    setValue("accidentRoad", addr.Road);
-                    setValue("accidentNumber", addr.Number);
-                    setValue("accidentAddressComplement", addr.Complement ?? "");
-                    setValue("accidentCep", addr.Cep);
-                    setValue("accidentDistrict", addr.District);
-                    setValue("accidentCity", addr.City);
-                    setValue("accidentState", addr.State);
-                    setValue("latitude", addr.Latitude);
-                    setValue("longitude", addr.Longitude);
-                    setLat(addr.Latitude);
-                    setLng(addr.Longitude);
-                }
-
                 // Pessoas e veículos
                 setPersons(sinistro.peopleEnvolved ?? []);
                 setVehicles(sinistro.vehiclesEnvolved ?? []);
+
+                //Endereço
+                setAccidentAddress(sinistro.sinistroAddress);
 
             } catch (err) {
                 console.error("Erro ao buscar sinistro:", err);
@@ -102,30 +90,10 @@ export const SinistroEdit = () => {
         fetchSinistro();
     }, [id, setValue]);
 
-    /* Mapa */
-    const handleLocationSelect = (latitude: number, longitude: number) => {
-        setLat(latitude);
-        setLng(longitude);
-        setValue("latitude", latitude);
-        setValue("longitude", longitude);
-    };
-
     /* Envio do formulário */
     const onSubmit: SubmitHandler<SinistroFormData> = async (data) => {
+        setLoading(true);
         try {
-            const accidentAddress = new AccidentAddress(
-                uuidv4(),
-                data.accidentRoad,
-                data.accidentNumber,
-                data.accidentAddressComplement,
-                data.accidentCep,
-                data.accidentDistrict,
-                data.accidentCity,
-                data.accidentState,
-                data.latitude,
-                data.longitude
-            );
-
             const accident = new Accident(
                 id ?? "",
                 data.date,
@@ -137,11 +105,13 @@ export const SinistroEdit = () => {
                 data.weather,
                 persons,
                 vehicles,
-                accidentAddress,
+                accidentAddress!,
                 data.accidentDescription
             );
 
-            const payload = mapAccidentToApi(accident);
+            console.log("Acidente ID:", accident.id);
+            const payload = MapAccidentToUpdate(accident);
+            console.log("📤 Payload enviado:", payload);
 
             const response = await Api.put(`/sinistros/${id}`, payload);
             console.log("✅ Sinistro atualizado:", response.data);
@@ -156,11 +126,18 @@ export const SinistroEdit = () => {
     if (loading) return <LoadingMessage message="Carregando dados do sinistro..." />;
 
     return (
-        <div className="sinistro-Form-component">
-            <form className="app-container" onSubmit={handleSubmit(onSubmit)}>
-                <h2 className="sub-title">Editar Sinistro</h2>
+        <div className="edit-sinistro-container">
+            <div className="stander-sinistro-header">
+                <h2>Editar Sinistro</h2>
 
-                {/* Dados principais */}
+                <div className="btn-group">
+                    <button onClick={() => navigate(-1)} className="btn-voltar">
+                        ← Voltar
+                    </button>
+                </div>
+            </div>
+
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group">
                     <label>Data:</label>
                     <input type="date" {...register("date", { required: true })} />
@@ -220,56 +197,6 @@ export const SinistroEdit = () => {
                     errors={errors}
                 />
 
-                {/* Endereço */}
-                <h3 className="sub-title">Endereço do Acidente</h3>
-                <div className="form-group">
-                    <label>Rua:</label>
-                    <input type="text" {...register("accidentRoad", { required: true })} />
-                </div>
-                <div className="form-group">
-                    <label>Número:</label>
-                    <input type="text" {...register("accidentNumber", { required: true })} />
-                </div>
-                <div className="form-group">
-                    <label>Complemento:</label>
-                    <textarea {...register("accidentAddressComplement")} />
-                </div>
-                <div className="form-group">
-                    <label>CEP:</label>
-                    <input type="text" {...register("accidentCep", { required: true })} />
-                </div>
-                <div className="form-group">
-                    <label>Bairro:</label>
-                    <input type="text" {...register("accidentDistrict", { required: true })} />
-                </div>
-                <div className="form-group">
-                    <label>Cidade:</label>
-                    <input type="text" {...register("accidentCity", { required: true })} />
-                </div>
-                <div className="form-group">
-                    <label>Estado:</label>
-                    <input type="text" {...register("accidentState", { required: true })} />
-                </div>
-
-                {/* Localização */}
-                <h3 className="sub-title">Localização do Acidente</h3>
-                <div className="form-group">
-                    <MapPicker
-                        onLocationSelect={handleLocationSelect}
-                        initialLat={lat}
-                        initialLng={lng}
-                        initialZoom={15}
-                    />
-                    {lat && lng && (
-                        <div style={{ padding: "10px 0 0 15px" }}>
-                            <p>Latitude: {lat.toFixed(6)}, Longitude: {lng.toFixed(6)}</p>
-                        </div>
-                    )}
-                </div>
-
-                <input type="hidden" {...register("latitude", { valueAsNumber: true, required: true })} />
-                <input type="hidden" {...register("longitude", { valueAsNumber: true })} />
-
                 <div className="form-group">
                     <label>Descrição:</label>
                     <textarea {...register("accidentDescription", { required: true })} />
@@ -282,6 +209,7 @@ export const SinistroEdit = () => {
                         setVehicles(newVehicles);
                         setPersons(newPersons);
                     }}
+                    onAddVehicle={() => setShowVehicleForm(true)}
                 />
 
                 <br />
@@ -289,6 +217,18 @@ export const SinistroEdit = () => {
                     <button type="submit">Salvar Alterações</button>
                 </div>
             </form>
+
+            {/* Modal Vehicle - Portal */}
+            {showVehicleForm && (
+                <VehiclePersonModal
+                    onSave={(vehicle, person) => {
+                        setVehicles(prev => [...prev, vehicle]);
+                        setPersons(prev => [...prev, person]);
+                        setShowVehicleForm(false);
+                    }}
+                    onCancel={() => setShowVehicleForm(false)}
+                />
+            )}
         </div>
     );
 };

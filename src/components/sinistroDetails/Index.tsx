@@ -12,6 +12,8 @@ import { GroundTypeLabel } from "../../enums/GroundType";
 import { RoadPavementTypeLabel } from "../../enums/RoadPavementType";
 import { RoadTypeLabel } from "../../enums/RoadType";
 import { SinistroTypeLabel } from "../../enums/SinistroType";
+import { RequirePermission } from "../../Auth/RequirePermission";
+import { WeatherLabel } from "../../enums/Weather";
 
 export const SinistroDetails = () => {
     const { id } = useParams<{ id: string }>();
@@ -45,17 +47,21 @@ export const SinistroDetails = () => {
                     <button onClick={() => navigate(-1)} className="btn-voltar">
                         ← Voltar
                     </button>
-                    <button
-                        onClick={() => navigate(`/sinistros/editar/${sinistro.id}`)}
-                        className="btn-editar"
-                    >
-                        ✎ Editar
-                    </button>
                 </div>
             </div>
 
             <section className="card">
-                <h3>Informações Gerais</h3>
+                <div className="card-header">
+                    <h3>Informações Gerais</h3>
+                    <RequirePermission claim="Sinistros" action="ED">
+                        <button
+                            onClick={() => navigate(`/sinistros/editar/${sinistro.id}`)}
+                            className="btn-editar"
+                        >
+                            ✎ Editar Sinistro
+                        </button>
+                    </RequirePermission>
+                </div>
                 <div className="info-grid">
                     <p><strong>Data:</strong> {new Date(sinistro.date).toLocaleDateString()}</p>
                     <p><strong>Feridos:</strong> {sinistro.injuredPeople ? "Sim" : "Não"}</p>
@@ -63,29 +69,11 @@ export const SinistroDetails = () => {
                     <p><strong>Terreno:</strong> {GroundTypeLabel[sinistro.groundType]}</p>
                     <p><strong>Via:</strong> {RoadTypeLabel[sinistro.roadType]}</p>
                     <p><strong>Pavimento:</strong> {RoadPavementTypeLabel[sinistro.roadPavementType]}</p>
+                    <p><strong>Clima:</strong> {WeatherLabel[sinistro.weather]}</p>
                 </div>
+                <br/>
                 <p className="descricao"><strong>Descrição:</strong> {sinistro.sinistroDescription}</p>
             </section>
-
-            {address && (
-                <section className="card">
-                    <h3>Local do Sinistro</h3>
-                    <div className="info-grid">
-                        <p><strong>Rua:</strong> {address.Road}, {address.Number}</p>
-                        <p><strong>Bairro:</strong> {address.District}</p>
-                        <p><strong>Cidade:</strong> {address.City} - {address.State}</p>
-                        <p><strong>CEP:</strong> {address.Cep}</p>
-                        {address.Complement && <p><strong>Complemento:</strong> {address.Complement}</p>}
-                    </div>
-                    <div className="mapa">
-                        <SinistroMapViewer
-                            latitude={address.Latitude}
-                            longitude={address.Longitude}
-                            label={`${address.Road}, ${address.Number}`}
-                        />
-                    </div>
-                </section>
-            )}
 
             <section className="card">
                 <h3>Pessoas Envolvidas</h3>
@@ -116,6 +104,38 @@ export const SinistroDetails = () => {
                     </table>
                 )}
             </section>
+
+            {address && (
+                <section className="card">
+                    <div className="card-header">
+                        <h3>Local do Sinistro</h3>
+                        <RequirePermission claim="Sinistros" action="ED">
+                            <button
+                                onClick={() => navigate(`/sinistros/editarEnderecoSinistro/${sinistro.id}`)}
+                                className="btn-editar"
+                            >
+                                ✎ Editar
+                            </button>
+                        </RequirePermission>
+                    </div>
+                    <div className="info-grid">
+                        <p><strong>Rua:</strong> {address.Road}, {address.Number}</p>
+                        <p><strong>Bairro:</strong> {address.District}</p>
+                        <p><strong>Cidade:</strong> {address.City} - {address.State}</p>
+                        <p><strong>CEP:</strong> {address.Cep}</p>
+                        {address.Complement && <p><strong>Complemento:</strong> {address.Complement}</p>}
+                    </div>
+                    <div className="mapa">
+                        <SinistroMapViewer
+                            latitude={address.Latitude}
+                            longitude={address.Longitude}
+                            label={`${address.Road}, ${address.Number}`}
+                        />
+                    </div>
+                </section>
+            )}
+
+
         </div>
     );
 };

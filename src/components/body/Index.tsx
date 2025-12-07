@@ -5,6 +5,7 @@ import './Index.css'
 import { SinistrosList } from '../sinistrosList/Index'
 import { SinistroDetails } from '../sinistroDetails/Index';
 import { SinistroEdit } from '../sinistroEdit/Index';
+import { SinistroAddressEdit } from '../sinistroAddressEdit/Index';
 import { LoginPage } from '../../pages/LoginPage/LoginPage';
 
 export function Body(){
@@ -18,6 +19,7 @@ export function Body(){
                 <Route path="/listaSinistros" element={<SinistrosList />}/>
                 <Route path="/sinistros/:id" element={<SinistroDetails />}/>
                 <Route path="/sinistros/editar/:id" element={<SinistroEdit />}/>
+                <Route path="/sinistros/editarEnderecoSinistro/:id" element={<SinistroAddressEdit />}/>
 
                 <Route path="*" element={<About />} />
             </Routes>

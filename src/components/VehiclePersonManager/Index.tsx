@@ -34,10 +34,12 @@ export function VehiclePersonManager({ vehicles, persons, onChange, onAddVehicle
                     </li>
                 ))}
             </ul>
+            <div className="justify-button">
+                <button type="button" className="add-vehicle-btn" onClick={onAddVehicle}>
+                    Adicionar Veículo
+                </button>
+            </div>
 
-            <button type="button" className="add-vehicle-btn" onClick={onAddVehicle}>
-                Adicionar Veículo
-            </button>
         </div>
     );
 }
