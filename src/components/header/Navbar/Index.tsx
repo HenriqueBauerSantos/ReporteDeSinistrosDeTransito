@@ -23,9 +23,15 @@ export function Navbar() {
       <div className="nav-left">
         <Link to="/sobre" className="nav-button">Sobre</Link>
         {isAuthenticated && (<Link to="/cadastro" className="nav-button">Cadastro</Link>)}
-        
+
+        <RequirePermission claim="Sinistros" action="AD">
+          <Link to="/listaUserSinistros" className="nav-button">Meus Sinistros</Link>
+        </RequirePermission>
         <RequirePermission claim="Sinistros" action="VI">
           <Link to="/listaSinistros" className="nav-button">Lista de Sinistros</Link>
+        </RequirePermission>
+        <RequirePermission claim="Sinistros" action="CANEX">
+          <Link to="/sinistros/listaExclusaoSinistros" className="nav-button">Solicitações de exclusão</Link>
         </RequirePermission>
       </div>
 

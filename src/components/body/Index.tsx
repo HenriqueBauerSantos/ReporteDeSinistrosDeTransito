@@ -7,6 +7,8 @@ import { SinistroDetails } from '../sinistroDetails/Index';
 import { SinistroEdit } from '../sinistroEdit/Index';
 import { SinistroAddressEdit } from '../sinistroAddressEdit/Index';
 import { LoginPage } from '../../pages/LoginPage/LoginPage';
+import { SinistrosSolicitacaoList } from '../SinistrosSolicitacaoList/SinistrosSolicitacaoList';
+import { SinistrosUserList } from '../sinistrosUserList/Index';
 
 export function Body(){
     return(
@@ -20,6 +22,8 @@ export function Body(){
                 <Route path="/sinistros/:id" element={<SinistroDetails />}/>
                 <Route path="/sinistros/editar/:id" element={<SinistroEdit />}/>
                 <Route path="/sinistros/editarEnderecoSinistro/:id" element={<SinistroAddressEdit />}/>
+                <Route path="/sinistros/listaExclusaoSinistros" element={<SinistrosSolicitacaoList />}/>
+                <Route path="/listaUserSinistros" element={<SinistrosUserList />}/>
 
                 <Route path="*" element={<About />} />
             </Routes>

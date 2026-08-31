@@ -17,6 +17,7 @@ import { mapAccidentToApi } from "../../Services/MapAccidentToApi";
 import { v4 as uuidv4 } from "uuid";
 import { EnumSelect } from "../GeneralComponents/EnumSelect";
 import { VehiclePersonModal } from "../VehiclePersonForm/SinistroPersonModal";
+import { useNavigate } from "react-router-dom";
 
 type SinistroFormData = {
     date: string;
@@ -44,6 +45,7 @@ export const SinistroForm = () => {
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<SinistroFormData>();
     const [vehicles, setVehicles] = useState<Vehicle[]>([]);
     const [persons, setPersons] = useState<Person[]>([]);
+    const navigate = useNavigate();
 
     const [lat, setLat] = useState<number | null>(null);
     const [lng, setLng] = useState<number | null>(null);
@@ -97,6 +99,7 @@ export const SinistroForm = () => {
 
             setVehicles([]);
             setPersons([]);
+            navigate(`/sobre`);
 
         } catch (error) {
             console.error("Erro ao cadastrar sinistro:", error);

@@ -120,3 +120,9 @@
 .tabela-pessoas tr:hover {
   background-color: #f9fafb;
 }
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}

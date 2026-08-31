@@ -6,6 +6,7 @@ import "./Index.css"
 import { MapSinistroApiToModel } from "../../mappers/SinistroMapper";
 import { SinistroMapViewer } from "../localization/SinistroMapViewer/SinistroMapViewer";
 import { LoadingMessage } from "../LoadingMessage/Index";
+import { ConfirmModal } from "../ConfirmModal/ConfirmModal";
 
 /* Enums */
 import { GroundTypeLabel } from "../../enums/GroundType";
@@ -18,6 +19,8 @@ import { WeatherLabel } from "../../enums/Weather";
 export const SinistroDetails = () => {
     const { id } = useParams<{ id: string }>();
     const [sinistro, setSinistro] = useState<Accident | null>(null);
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -33,6 +36,17 @@ export const SinistroDetails = () => {
         fetchData();
     }, [id]);
 
+    const handleSolicitarExclusao = async () => {
+        try {
+            await Api.delete(`/sinistros/solicitacaoDeletarSinistro/${id}`);
+            setShowConfirm(false);
+            setShowSuccess(true);
+        } catch (error) {
+            console.error(error);
+            alert("Erro ao enviar solicitação.");
+        }
+    };
+
     if (!sinistro)
         return <LoadingMessage message="Carregando detalhes do sinistro..." />;
 
@@ -41,6 +55,24 @@ export const SinistroDetails = () => {
 
     return (
         <div className="sinistro-details-container">
+            {showConfirm && (
+                <ConfirmModal
+                    title="Confirmar Solicitação"
+                    message="Tem certeza que deseja enviar este sinistro para análise de exclusão?"
+                    onConfirm={handleSolicitarExclusao}
+                    onClose={() => setShowConfirm(false)}
+                />
+            )}
+
+            {showSuccess && (
+                <ConfirmModal
+                    title="Solicitação Enviada!"
+                    message="Sua solicitação de exclusão foi enviada com sucesso."
+                    onConfirm={() => setShowSuccess(false)}
+                    onClose={() => setShowSuccess(false)}
+                />
+            )}
+
             <div className="header-sinistro">
                 <h2>Detalhes do Sinistro</h2>
                 <div className="btn-group">
@@ -53,14 +85,25 @@ export const SinistroDetails = () => {
             <section className="card">
                 <div className="card-header">
                     <h3>Informações Gerais</h3>
-                    <RequirePermission claim="Sinistros" action="ED">
-                        <button
-                            onClick={() => navigate(`/sinistros/editar/${sinistro.id}`)}
-                            className="btn-editar"
-                        >
-                            ✎ Editar Sinistro
-                        </button>
-                    </RequirePermission>
+                    <div className="action-buttons">
+                        <RequirePermission claim="Sinistros" action="ED">
+                            <button
+                                onClick={() => navigate(`/sinistros/editar/${sinistro.id}`)}
+                                className="btn-editar"
+                            >
+                                ✎ Editar Sinistro
+                            </button>
+                        </RequirePermission>
+                        <RequirePermission claim="Sinistros" action="EX">
+                            <button
+                                onClick={() => setShowConfirm(true)}
+                                className="btn-editar"
+                            >
+                                Solicitar exclusão
+                            </button>
+                        </RequirePermission>
+                    </div>
+
                 </div>
                 <div className="info-grid">
                     <p><strong>Data:</strong> {new Date(sinistro.date).toLocaleDateString()}</p>
@@ -71,7 +114,7 @@ export const SinistroDetails = () => {
                     <p><strong>Pavimento:</strong> {RoadPavementTypeLabel[sinistro.roadPavementType]}</p>
                     <p><strong>Clima:</strong> {WeatherLabel[sinistro.weather]}</p>
                 </div>
-                <br/>
+                <br />
                 <p className="descricao"><strong>Descrição:</strong> {sinistro.sinistroDescription}</p>
             </section>
 
