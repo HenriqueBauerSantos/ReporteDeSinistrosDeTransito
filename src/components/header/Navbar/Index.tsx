@@ -9,6 +9,7 @@ export function Navbar() {
   const canAccessMyAccidents = permissions?.Sinistros?.includes("AD") ?? false;
   const canAccessAccidentList = permissions?.Sinistros?.includes("VI") ?? false;
   const canAccessMap = permissions?.Sinistros?.includes("VI") ?? false;
+  const canAccessStatistics = permissions?.Sinistros?.includes("VI") ?? false;
   const canAccessDeletionRequests = permissions?.Sinistros?.includes("CANEX") ?? false;
 
   function handleLogout() {
@@ -49,6 +50,9 @@ export function Navbar() {
               Análise de dados <span aria-hidden="true">▾</span>
             </button>
             <div className="nav-dropdown-menu">
+              {canAccessStatistics && (
+                <Link to="/estatisticas" className="nav-dropdown-item">Estatísticas</Link>
+              )}
               {canAccessMap && (
                 <Link to="/mapaSinistros" className="nav-dropdown-item">Mapa de Sinistros</Link>
               )}
