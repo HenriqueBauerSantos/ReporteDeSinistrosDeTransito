@@ -9,6 +9,8 @@ import { SinistroAddressEdit } from '../sinistroAddressEdit/Index';
 import { LoginPage } from '../../pages/LoginPage/LoginPage';
 import { SinistrosSolicitacaoList } from '../SinistrosSolicitacaoList/SinistrosSolicitacaoList';
 import { SinistrosUserList } from '../sinistrosUserList/Index';
+import { MapaSinistros } from '../localization/MapaSinistros/MapaSinistros';
+import { RequirePermission } from '../../Auth/RequirePermission';
 
 export function Body(){
     return(
@@ -19,6 +21,7 @@ export function Body(){
                 <Route path="/sobre" element={<About />} />
                 <Route path="/cadastro" element={<SinistroForm />} />
                 <Route path="/listaSinistros" element={<SinistrosList />}/>
+                <Route path="/mapaSinistros" element={<RequirePermission claim="Sinistros" action="VI"><MapaSinistros /></RequirePermission>} />
                 <Route path="/sinistros/:id" element={<SinistroDetails />}/>
                 <Route path="/sinistros/editar/:id" element={<SinistroEdit />}/>
                 <Route path="/sinistros/editarEnderecoSinistro/:id" element={<SinistroAddressEdit />}/>

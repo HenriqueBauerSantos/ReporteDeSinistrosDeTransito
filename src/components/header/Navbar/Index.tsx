@@ -29,6 +29,7 @@ export function Navbar() {
         </RequirePermission>
         <RequirePermission claim="Sinistros" action="VI">
           <Link to="/listaSinistros" className="nav-button">Lista de Sinistros</Link>
+          <Link to="/mapaSinistros" className="nav-button">Mapa de Sinistros</Link>
         </RequirePermission>
         <RequirePermission claim="Sinistros" action="CANEX">
           <Link to="/sinistros/listaExclusaoSinistros" className="nav-button">Solicitações de exclusão</Link>
