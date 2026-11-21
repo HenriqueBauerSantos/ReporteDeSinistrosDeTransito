@@ -1,4 +1,4 @@
-import Api from "./Api";
+import Api, { getApiResponseList, type CustomResponse } from "./Api";
 
 export type SinistroMapa = {
     id: string;
@@ -27,10 +27,10 @@ export type SinistroMapaFilters = {
 };
 
 export type MapaBounds = {
-    minLat: number;
-    maxLat: number;
-    minLng: number;
-    maxLng: number;
+    minLatitude: number;
+    maxLatitude: number;
+    minLongitude: number;
+    maxLongitude: number;
 };
 
 export async function buscarSinistrosNoMapa(
@@ -38,10 +38,10 @@ export async function buscarSinistrosNoMapa(
     filters: SinistroMapaFilters,
     signal?: AbortSignal,
 ): Promise<SinistroMapa[]> {
-    const response = await Api.get<SinistroMapa[]>("/sinistros/mapa", {
+    const response = await Api.get<CustomResponse<SinistroMapa[]>>("/sinistros/mapa", {
         params: { ...filters, ...bounds },
         signal,
     });
 
-    return response.data;
+    return getApiResponseList(response.data, "Não foi possível carregar marcadores do mapa.");
 }

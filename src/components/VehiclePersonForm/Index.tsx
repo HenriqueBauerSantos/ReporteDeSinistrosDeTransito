@@ -11,7 +11,7 @@ type VehicleFormData = {
     carLisencePlate: string;
     brand: string;
     model: string;
-    manufacturingYear: string;
+    manufacturingYear: number;
     color: string;
     typeVehicle: TypeVehicle;
 
@@ -34,6 +34,11 @@ type VehicleFormData = {
 
 export const VehicleForm = ({ onSave, onCancel }: { onSave: (v: Vehicle, p: Person) => void, onCancel: () => void }) => {
     const { register, handleSubmit, formState: { errors } } = useForm<VehicleFormData>();
+    const currentYear = new Date().getFullYear();
+    const manufacturingYears = Array.from(
+        { length: currentYear - 1900 + 1 },
+        (_, index) => currentYear - index
+    );
 
     const onSubmit: SubmitHandler<VehicleFormData> = async (data) => {
         const vehicle = new Vehicle(
@@ -41,7 +46,7 @@ export const VehicleForm = ({ onSave, onCancel }: { onSave: (v: Vehicle, p: Pers
             data.carLisencePlate,
             data.brand,
             data.model,
-            new Date(data.manufacturingYear),
+            data.manufacturingYear,
             data.color,
             data.typeVehicle
         );
@@ -110,10 +115,19 @@ export const VehicleForm = ({ onSave, onCancel }: { onSave: (v: Vehicle, p: Pers
 
             <div className="form-group">
                 <label>Ano de Fabricação</label>
-                <input
-                    type="date"
-                    {...register("manufacturingYear", { required: true })}
-                />
+                <select
+                    {...register("manufacturingYear", {
+                        required: true,
+                        valueAsNumber: true,
+                        min: 1900,
+                        max: currentYear,
+                    })}
+                >
+                    <option value="">Selecione um ano</option>
+                    {manufacturingYears.map((year) => (
+                        <option key={year} value={year}>{year}</option>
+                    ))}
+                </select>
                 {errors.manufacturingYear?.type === 'required' && <span style={{ color: "red" }}>Ano de fabricação do veículo é obrigatório</span>}
             </div>
 

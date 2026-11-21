@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { MapContainer, TileLayer, useMap, useMapEvents } from "react-leaflet";
 import type { LatLngBounds } from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { DEFAULT_MAP_CENTER } from "../../../config/mapConfig";
 import {
     type MapaBounds,
     type SinistroMapaFilters,
@@ -16,10 +17,10 @@ function toMapaBounds(bounds: LatLngBounds): MapaBounds {
     const northEast = bounds.getNorthEast();
 
     return {
-        minLat: southWest.lat,
-        maxLat: northEast.lat,
-        minLng: southWest.lng,
-        maxLng: northEast.lng,
+        minLatitude: southWest.lat,
+        maxLatitude: northEast.lat,
+        minLongitude: southWest.lng,
+        maxLongitude: northEast.lng,
     };
 }
 
@@ -47,8 +48,8 @@ export function MapaSinistros() {
             <FiltrosMapa onApply={setFilters} />
             <section className="sinistros-map-section" aria-label="Mapa de sinistros">
                 <MapContainer
-                    center={[-14.235, -51.9253]}
-                    zoom={4}
+                    center={DEFAULT_MAP_CENTER}
+                    zoom={13}
                     scrollWheelZoom
                     className="sinistros-map"
                 >

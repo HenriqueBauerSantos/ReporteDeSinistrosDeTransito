@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { MapContainer, TileLayer, Marker, useMap, useMapEvents } from "react-leaflet";
 import type { LeafletMouseEvent } from "leaflet";
 import L from "leaflet";
+import { DEFAULT_MAP_CENTER } from "../../../config/mapConfig";
 import "leaflet/dist/leaflet.css";
 import "./Style.css";
 
@@ -68,9 +69,8 @@ export function MapPicker({
   initialLng,
   initialZoom = 13,
 }: MapPickerProps) {
-  const defaultPosition: [number, number] = [-29.3242, -49.7579];
   const centerPosition: [number, number] =
-    initialLat && initialLng ? [initialLat, initialLng] : defaultPosition;
+    initialLat && initialLng ? [initialLat, initialLng] : DEFAULT_MAP_CENTER;
 
   return (
     <div className="map-wrapper">

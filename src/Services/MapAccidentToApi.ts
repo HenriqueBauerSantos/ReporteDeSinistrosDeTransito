@@ -48,7 +48,7 @@ export function mapAccidentToApi(accident: Accident) {
         carLisencePlate: v.CarLisencePlate,
         brand: v.Brand,
         model: v.Model,
-        manufacturingYear: new Date(v.ManufacturingYear).toISOString(),
+        manufacturingYear: v.ManufacturingYear,
         color: v.Color,
         typeVehicle: v.TypeVehicle,
         sinistroId: sinistroId, // ✅ necessário

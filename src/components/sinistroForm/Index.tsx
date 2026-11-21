@@ -6,7 +6,7 @@ import { Vehicle } from "../../model/Vehicle";
 import { Accident } from "../../model/Accident";
 import { AccidentAddress } from "../../model/AccidentAddress";
 import { MapPicker } from "../localization/SinistroMarker/MapPicker";
-import { Api } from "../../Services/Api";
+import { Api, getApiErrorMessage, getApiResponseData, type CustomResponse } from "../../Services/Api";
 import { SinistroType, SinistroTypeLabel } from "../../enums/SinistroType";
 import { RoadPavementType, RoadPavementTypeLabel } from "../../enums/RoadPavementType";
 import { RoadType, RoadTypeLabel } from "../../enums/RoadType";
@@ -18,6 +18,7 @@ import { v4 as uuidv4 } from "uuid";
 import { EnumSelect } from "../GeneralComponents/EnumSelect";
 import { VehiclePersonModal } from "../VehiclePersonForm/SinistroPersonModal";
 import { useNavigate } from "react-router-dom";
+import type { ApiAccident } from "../../mappers/SinistroMapper";
 
 type SinistroFormData = {
     date: string;
@@ -52,6 +53,7 @@ export const SinistroForm = () => {
 
     // Modal Vehicle
     const [showVehicleForm, setShowVehicleForm] = useState(false);
+    const [apiError, setApiError] = useState<string | null>(null);
 
     const handleLocationSelect = (latitude: number, longitude: number) => {
         setLat(latitude);
@@ -61,6 +63,7 @@ export const SinistroForm = () => {
     };
 
     const onSubmit: SubmitHandler<SinistroFormData> = async (data) => {
+        setApiError(null);
         try {
             const accidentAddress = new AccidentAddress(
                 uuidv4(),
@@ -93,8 +96,9 @@ export const SinistroForm = () => {
             const payload = mapAccidentToApi(accident);
             console.log("📤 Payload enviado:", payload);
 
-            const response = await Api.post("/sinistros", payload);
-            console.log("✅ Sinistro cadastrado:", response.data);
+            const response = await Api.post<CustomResponse<ApiAccident>>("/sinistros", payload);
+            const createdSinistro = getApiResponseData(response.data, "Erro ao cadastrar sinistro.");
+            console.log("✅ Sinistro cadastrado:", createdSinistro);
             alert("Sinistro cadastrado com sucesso!");
 
             setVehicles([]);
@@ -103,7 +107,7 @@ export const SinistroForm = () => {
 
         } catch (error) {
             console.error("Erro ao cadastrar sinistro:", error);
-            alert("Erro ao cadastrar sinistro. Verifique os dados/API.");
+            setApiError(getApiErrorMessage(error, "Erro ao cadastrar sinistro. Verifique os dados/API."));
         }
     };
 
@@ -111,6 +115,7 @@ export const SinistroForm = () => {
         <div className="sinistro-Form-component">
             <form className="app-container" onSubmit={handleSubmit(onSubmit)}>
                 <h2 className="sub-title">Dados do sinistro</h2>
+                {apiError && <p role="alert">{apiError}</p>}
 
                 <div className="form-group">
                     <label>Data:</label>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { getApiErrorMessage } from "../Services/Api";
 import {
     buscarSinistrosNoMapa,
     type MapaBounds,
@@ -31,7 +32,10 @@ export function useMapaSinistros(filters: SinistroMapaFilters) {
             })
             .catch((requestError: unknown) => {
                 if (isCurrentRequest && !axios.isCancel(requestError)) {
-                    setError("Não foi possível carregar os sinistros desta área. Tente novamente.");
+                    setError(getApiErrorMessage(
+                        requestError,
+                        "Não foi possível carregar os sinistros desta área. Tente novamente."
+                    ));
                 }
             })
             .finally(() => {

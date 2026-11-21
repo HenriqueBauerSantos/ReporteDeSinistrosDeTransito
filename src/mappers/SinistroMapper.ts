@@ -39,7 +39,7 @@ interface ApiVehicle {
     carLisencePlate: string;
     brand: string;
     model: string;
-    manufacturingYear: string;
+    manufacturingYear: number;
     color: string;
     typeVehicle: TypeVehicle;
 }
@@ -110,7 +110,7 @@ export function MapSinistroApiToModel(data: ApiAccident): Accident {
                 v.carLisencePlate,
                 v.brand,
                 v.model,
-                new Date(v.manufacturingYear),
+                v.manufacturingYear,
                 v.color,
                 v.typeVehicle
             )

@@ -5,11 +5,11 @@ export class Vehicle{
     CarLisencePlate: string;
     Brand: string;
     Model: string;
-    ManufacturingYear: Date;
+    ManufacturingYear: number;
     Color: string;
     TypeVehicle: TypeVehicle;
 
-    constructor(id: string,carLisencePlate: string, brand: string, model: string, manufacturingYear: Date,
+    constructor(id: string,carLisencePlate: string, brand: string, model: string, manufacturingYear: number,
         color: string, typeVehicle: TypeVehicle
     ) {
         this.id = id;

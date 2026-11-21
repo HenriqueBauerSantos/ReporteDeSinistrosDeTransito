@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Api from "../../Services/Api";
+import Api, { getApiErrorMessage, getApiResponseData, type CustomResponse } from "../../Services/Api";
 import { Accident } from "../../model/Accident";
 import "./Index.css"
 import { MapSinistroApiToModel } from "../../mappers/SinistroMapper";
@@ -15,10 +15,12 @@ import { RoadTypeLabel } from "../../enums/RoadType";
 import { SinistroTypeLabel } from "../../enums/SinistroType";
 import { RequirePermission } from "../../Auth/RequirePermission";
 import { WeatherLabel } from "../../enums/Weather";
+import type { ApiAccident } from "../../mappers/SinistroMapper";
 
 export const SinistroDetails = () => {
     const { id } = useParams<{ id: string }>();
     const [sinistro, setSinistro] = useState<Accident | null>(null);
+    const [loadError, setLoadError] = useState<string | null>(null);
     const [showConfirm, setShowConfirm] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const navigate = useNavigate();
@@ -26,11 +28,13 @@ export const SinistroDetails = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await Api.get(`/sinistros/${id}`);
-                const mapped = MapSinistroApiToModel(response.data);
+                const response = await Api.get<CustomResponse<ApiAccident>>(`/sinistros/${id}`);
+                const data = getApiResponseData(response.data, "Erro ao consultar sinistro.");
+                const mapped = MapSinistroApiToModel(data);
                 setSinistro(mapped);
             } catch (err) {
                 console.error(err);
+                setLoadError(getApiErrorMessage(err, "Não foi possível carregar os detalhes do sinistro."));
             }
         };
         fetchData();
@@ -38,15 +42,19 @@ export const SinistroDetails = () => {
 
     const handleSolicitarExclusao = async () => {
         try {
-            await Api.delete(`/sinistros/solicitacaoDeletarSinistro/${id}`);
+            const response = await Api.delete<CustomResponse<ApiAccident>>(
+                `/sinistros/solicitacaoDeletarSinistro/${id}`
+            );
+            getApiResponseData(response.data, "Erro ao enviar solicitação de exclusão.");
             setShowConfirm(false);
             setShowSuccess(true);
         } catch (error) {
             console.error(error);
-            alert("Erro ao enviar solicitação.");
+            alert(getApiErrorMessage(error, "Erro ao enviar solicitação."));
         }
     };
 
+    if (loadError) return <p role="alert">{loadError}</p>;
     if (!sinistro)
         return <LoadingMessage message="Carregando detalhes do sinistro..." />;
 

@@ -1,9 +1,23 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Api } from "../../Services/Api.ts";
+import {
+    Api,
+    getApiErrorMessage,
+    getApiResponseData,
+    type CustomResponse,
+} from "../../Services/Api.ts";
 import { useAuth } from "../../Auth/useAuth.ts";
-import { AxiosError } from "axios";
 import "./Index.css"
+
+type LoginResponseData = {
+    accessToken: string;
+    expiresIn: number;
+    userToken: {
+        id: string;
+        email: string;
+        claims: unknown;
+    };
+};
 
 export function LoginPage() {
     const { login } = useAuth();
@@ -17,22 +31,20 @@ export function LoginPage() {
         setErrorMessage("");
 
         try {
-            const response = await Api.post("/api/entrar", {
+            const response = await Api.post<CustomResponse<LoginResponseData>>("/api/entrar", {
                 email,
                 password
             });
 
-            const token = response.data.data.accessToken;
-            login?.(token);
+            const loginData = getApiResponseData(response.data, "Não foi possível entrar.");
+            if (!loginData.accessToken) {
+                throw new Error("A API não retornou um token de acesso.");
+            }
+
+            login(loginData.accessToken);
             navigate("/");
         } catch (err: unknown) {
-            const error = err as AxiosError;
-
-            if (error.response?.status === 400) {
-                setErrorMessage("E-mail ou senha inválidos.");
-            } else {
-                setErrorMessage("Erro inesperado. Tente novamente.");
-            }
+            setErrorMessage(getApiErrorMessage(err, "Erro inesperado. Tente novamente."));
         }
     }
 

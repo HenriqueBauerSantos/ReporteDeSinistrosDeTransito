@@ -7,8 +7,9 @@ import { Vehicle } from "../../model/Vehicle";
 import { Accident } from "../../model/Accident";
 import { AccidentAddress } from "../../model/AccidentAddress";
 import { MapPicker } from "../localization/SinistroMarker/MapPicker";
-import { Api } from "../../Services/Api";
+import { Api, getApiErrorMessage, getApiResponseData, type CustomResponse } from "../../Services/Api";
 import { MapSinistroApiToModel } from "../../mappers/SinistroMapper";
+import type { ApiAccident } from "../../mappers/SinistroMapper";
 import { MapAccidentToUpdate } from "../../Services/MapAccidentToUpdate";
 import { LoadingMessage } from "../LoadingMessage/Index";
 
@@ -56,8 +57,9 @@ export const SinistroAddressEdit = () => {
     useEffect(() => {
         const fetchSinistro = async () => {
             try {
-                const response = await Api.get(`/sinistros/${id}`);
-                const s = MapSinistroApiToModel(response.data);
+                const response = await Api.get<CustomResponse<ApiAccident>>(`/sinistros/${id}`);
+                const sinistroData = getApiResponseData(response.data, "Erro ao consultar sinistro.");
+                const s = MapSinistroApiToModel(sinistroData);
 
                 setSinistro(s);
                 setPersons(s.peopleEnvolved ?? []);
@@ -89,7 +91,7 @@ export const SinistroAddressEdit = () => {
                 }
             } catch (err) {
                 console.error("Erro ao buscar sinistro:", err);
-                alert("Erro ao carregar dados do sinistro.");
+                alert(getApiErrorMessage(err, "Erro ao carregar dados do sinistro."));
             } finally {
                 setLoading(false);
             }
@@ -140,13 +142,17 @@ export const SinistroAddressEdit = () => {
 
             const payload = MapAccidentToUpdate(accident);
 
-            await Api.put(`/sinistros/editarEnderecoSinistro/${id}`, payload);
+            const response = await Api.put<CustomResponse<ApiAccident>>(
+                `/sinistros/editarEnderecoSinistro/${id}`,
+                payload
+            );
+            getApiResponseData(response.data, "Erro ao atualizar endereço do sinistro.");
 
             alert("Endereço atualizado com sucesso!");
             navigate(`/sinistros/${id}`);
         } catch (error) {
             console.error("Erro ao atualizar sinistro:", error);
-            alert("Erro ao atualizar o sinistro. Verifique os dados/API.");
+            alert(getApiErrorMessage(error, "Erro ao atualizar o sinistro. Verifique os dados/API."));
         }
     };
 

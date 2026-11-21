@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Api from "../../Services/Api";
+import Api, {
+    getApiErrorMessage,
+    getApiResponseData,
+    getApiResponseList,
+    type CustomResponse,
+} from "../../Services/Api";
 import "./Index.css";
 import { Accident } from "../../model/Accident";
 import { LoadingMessage } from "../LoadingMessage/Index";
@@ -8,16 +13,22 @@ import { LoadingMessage } from "../LoadingMessage/Index";
 // Enums
 import { SinistroTypeLabel } from "../../enums/SinistroType";
 import { WeatherLabel } from "../../enums/Weather";
+import type { ApiAccident } from "../../mappers/SinistroMapper";
 
 export const SinistrosSolicitacaoList = () => {
     const [solicitacoes, setSolicitacoes] = useState<Accident[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
  
     const carregarSolicitacoes = async () => {
+        setLoading(true);
+        setError(null);
         try {
-            const response = await Api.get("/sinistros/ListasolicitacaoDeletarSinistro");
+            const response = await Api.get<CustomResponse<Accident[]>>("/sinistros/ListasolicitacaoDeletarSinistro");
+            const records = getApiResponseList(response.data, "Erro ao consultar solicitações.");
 
-            const mapped: Accident[] = response.data.map((s: Accident) =>
+            const mapped: Accident[] = records.map((s: Accident) =>
                 new Accident(
                     s.id,
                     s.date,
@@ -37,6 +48,9 @@ export const SinistrosSolicitacaoList = () => {
             setSolicitacoes(mapped);
         } catch (err) {
             console.error(err);
+            setError(getApiErrorMessage(err, "Não foi possível carregar as solicitações de exclusão."));
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -44,8 +58,11 @@ export const SinistrosSolicitacaoList = () => {
         carregarSolicitacoes();
     }, []);
 
-    if (solicitacoes.length === 0)
+    if (loading)
         return <LoadingMessage message="Carregando solicitações..." />;
+    if (error) return <p role="alert">{error}</p>;
+    if (solicitacoes.length === 0)
+        return <div className="sinistros-container"><h1>Solicitações de Exclusão</h1><p>Nenhuma solicitação encontrada.</p></div>;
 
     const handleDetails = (id: string) => {
         navigate(`/sinistros/${id}`);
@@ -55,13 +72,14 @@ export const SinistrosSolicitacaoList = () => {
         if (!confirm("Tem certeza que deseja excluir este sinistro?")) return;
 
         try {
-            await Api.delete(`/sinistros/${id}`);
+            const response = await Api.delete<CustomResponse<ApiAccident>>(`/sinistros/${id}`);
+            getApiResponseData(response.data, "Erro ao excluir sinistro.");
             alert("Sinistro excluído com sucesso!");
 
             await carregarSolicitacoes();
         } catch (ex) {
             console.error(ex);
-            alert("Erro ao excluir sinistro");
+            alert(getApiErrorMessage(ex, "Erro ao excluir sinistro."));
         }
     }
 
