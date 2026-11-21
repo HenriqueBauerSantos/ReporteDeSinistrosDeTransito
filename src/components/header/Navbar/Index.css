@@ -13,7 +13,57 @@
 /* Container dos botões da esquerda */
 .nav-left {
   display: flex;
+  align-items: center;
   gap: 20px;
+}
+
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-trigger {
+  font-family: inherit;
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  min-width: max-content;
+  flex-direction: column;
+  padding: 6px;
+  background: #099c41;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-dropdown-item {
+  padding: 9px 12px;
+  color: white;
+  font-size: 0.98rem;
+  text-decoration: none;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.nav-dropdown-item:hover,
+.nav-dropdown-item:focus {
+  color: #d1f0ff;
+  background: rgba(255, 255, 255, 0.12);
+  outline: none;
 }
 
 /* Container do login à direita */
