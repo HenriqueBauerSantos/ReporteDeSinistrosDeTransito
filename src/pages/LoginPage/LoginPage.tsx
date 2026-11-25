@@ -42,7 +42,7 @@ export function LoginPage() {
             }
 
             login(loginData.accessToken);
-            navigate("/");
+            navigate("/sobre", { replace: true });
         } catch (err: unknown) {
             setErrorMessage(getApiErrorMessage(err, "Erro inesperado. Tente novamente."));
         }
@@ -51,7 +51,7 @@ export function LoginPage() {
     return (
         <div className="login-container">
             <div className="login-card">
-                <h2>Entrar</h2>
+                <h2 className="page-title">Entrar</h2>
 
                 {errorMessage && <p className="error-text">{errorMessage}</p>}
 

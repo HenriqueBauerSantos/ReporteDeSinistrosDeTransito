@@ -166,7 +166,7 @@ export function EstatisticasSinistros() {
 
     return (
         <main className="statistics-page">
-            <h1>Estatísticas de sinistros</h1>
+            <h1 className="page-title">Estatísticas de sinistros</h1>
             <FiltrosEstatisticas onApply={setFilters} />
 
             {loading && <p className="statistics-status" role="status">Carregando estatísticas...</p>}

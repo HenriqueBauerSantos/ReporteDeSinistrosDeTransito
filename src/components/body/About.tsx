@@ -3,7 +3,7 @@ import './Index.css'
 export function About(){
     return(
         <div className="about-container">
-            <h1>Sobre o InfoTrânsito</h1>
+            <h1 className="page-title">Sobre o InfoTrânsito</h1>
 
             <p>
                 O <strong>InfoTrânsito</strong> é um sistema online desenvolvido para facilitar o

@@ -44,7 +44,7 @@ export function MapaSinistros() {
 
     return (
         <main className="sinistros-map-page">
-            <h1>Mapa de sinistros</h1>
+            <h1 className="page-title">Mapa de sinistros</h1>
             <FiltrosMapa onApply={setFilters} />
             <section className="sinistros-map-section" aria-label="Mapa de sinistros">
                 <MapContainer

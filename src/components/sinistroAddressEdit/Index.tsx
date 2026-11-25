@@ -163,7 +163,7 @@ export const SinistroAddressEdit = () => {
     return (
         <div className="edit-sinistro-container">
             <div className="stander-sinistro-header">
-                <h2>Editar Endereço do Sinistro</h2>
+                <h2 className="page-title">Editar Endereço do Sinistro</h2>
 
                 <div className="btn-group">
                     <button onClick={() => navigate(-1)} className="btn-voltar">

@@ -131,7 +131,7 @@ export const SinistroEdit = () => {
     return (
         <div className="edit-sinistro-container">
             <div className="stander-sinistro-header">
-                <h2>Editar Sinistro</h2>
+                <h2 className="page-title">Editar Sinistro</h2>
 
                 <div className="btn-group">
                     <button onClick={() => navigate(-1)} className="btn-voltar">

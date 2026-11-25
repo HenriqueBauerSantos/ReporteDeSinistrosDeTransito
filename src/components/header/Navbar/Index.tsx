@@ -14,7 +14,7 @@ export function Navbar() {
 
   function handleLogout() {
     logout();
-    
+    navigate("/sobre", { replace: true });
   }
 
   useEffect(() => {

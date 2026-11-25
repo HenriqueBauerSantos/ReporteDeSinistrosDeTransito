@@ -62,7 +62,7 @@ export const SinistrosSolicitacaoList = () => {
         return <LoadingMessage message="Carregando solicitações..." />;
     if (error) return <p role="alert">{error}</p>;
     if (solicitacoes.length === 0)
-        return <div className="sinistros-container"><h1>Solicitações de Exclusão</h1><p>Nenhuma solicitação encontrada.</p></div>;
+        return <div className="sinistros-container"><h1 className="page-title">Solicitações de Exclusão</h1><p>Nenhuma solicitação encontrada.</p></div>;
 
     const handleDetails = (id: string) => {
         navigate(`/sinistros/${id}`);
@@ -85,7 +85,7 @@ export const SinistrosSolicitacaoList = () => {
 
     return (
         <div className="sinistros-container">
-            <h1>Solicitações de Exclusão</h1>
+            <h1 className="page-title">Solicitações de Exclusão</h1>
 
             <table className="sinistros-table">
                 <thead>

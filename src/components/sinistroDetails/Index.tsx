@@ -82,7 +82,7 @@ export const SinistroDetails = () => {
             )}
 
             <div className="header-sinistro">
-                <h2>Detalhes do Sinistro</h2>
+                <h2 className="page-title">Detalhes do Sinistro</h2>
                 <div className="btn-group">
                     <button onClick={() => navigate(-1)} className="btn-voltar">
                         ← Voltar

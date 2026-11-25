@@ -16,22 +16,24 @@ import { RequirePermission } from '../../Auth/RequirePermission';
 export function Body(){
     return(
         <div className="body-container">
-            <Routes>
-                <Route path="/login" element={<LoginPage />} />
+            <div className="body-content">
+                <Routes>
+                    <Route path="/login" element={<LoginPage />} />
 
-                <Route path="/sobre" element={<About />} />
-                <Route path="/cadastro" element={<SinistroForm />} />
-                <Route path="/listaSinistros" element={<SinistrosList />}/>
-                <Route path="/estatisticas" element={<RequirePermission claim="Sinistros" action="VI"><EstatisticasSinistros /></RequirePermission>} />
-                <Route path="/mapaSinistros" element={<RequirePermission claim="Sinistros" action="VI"><MapaSinistros /></RequirePermission>} />
-                <Route path="/sinistros/:id" element={<SinistroDetails />}/>
-                <Route path="/sinistros/editar/:id" element={<SinistroEdit />}/>
-                <Route path="/sinistros/editarEnderecoSinistro/:id" element={<SinistroAddressEdit />}/>
-                <Route path="/sinistros/listaExclusaoSinistros" element={<SinistrosSolicitacaoList />}/>
-                <Route path="/listaUserSinistros" element={<SinistrosUserList />}/>
+                    <Route path="/sobre" element={<About />} />
+                    <Route path="/cadastro" element={<SinistroForm />} />
+                    <Route path="/listaSinistros" element={<SinistrosList />}/>
+                    <Route path="/estatisticas" element={<RequirePermission claim="Sinistros" action="VI"><EstatisticasSinistros /></RequirePermission>} />
+                    <Route path="/mapaSinistros" element={<RequirePermission claim="Sinistros" action="VI"><MapaSinistros /></RequirePermission>} />
+                    <Route path="/sinistros/:id" element={<SinistroDetails />}/>
+                    <Route path="/sinistros/editar/:id" element={<SinistroEdit />}/>
+                    <Route path="/sinistros/editarEnderecoSinistro/:id" element={<SinistroAddressEdit />}/>
+                    <Route path="/sinistros/listaExclusaoSinistros" element={<SinistrosSolicitacaoList />}/>
+                    <Route path="/listaUserSinistros" element={<SinistrosUserList />}/>
 
-                <Route path="*" element={<About />} />
-            </Routes>
+                    <Route path="*" element={<About />} />
+                </Routes>
+            </div>
             
         </div>
     )

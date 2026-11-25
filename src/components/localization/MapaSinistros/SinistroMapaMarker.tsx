@@ -1,5 +1,6 @@
 import L from "leaflet";
 import { Marker, Popup } from "react-leaflet";
+import { useNavigate } from "react-router-dom";
 import { SinistroTypeLabel } from "../../../enums/SinistroType";
 import { TypeVehicleLabel } from "../../../enums/TypeVehicle";
 import type { SinistroMapa } from "../../../Services/SinistroMapaService";
@@ -28,6 +29,7 @@ function formatAddress(sinistro: SinistroMapa) {
 }
 
 export function SinistroMapaMarker({ sinistro }: { sinistro: SinistroMapa }) {
+    const navigate = useNavigate();
     const date = new Date(sinistro.date);
     const formattedDate = Number.isNaN(date.getTime())
         ? sinistro.date
@@ -50,6 +52,13 @@ export function SinistroMapaMarker({ sinistro }: { sinistro: SinistroMapa }) {
                                 .join(", ")}
                         </div>
                     )}
+                    <button
+                        type="button"
+                        className="sinistro-map-popup-details"
+                        onClick={() => navigate(`/sinistros/${sinistro.id}`)}
+                    >
+                        Detalhes
+                    </button>
                 </div>
             </Popup>
         </Marker>

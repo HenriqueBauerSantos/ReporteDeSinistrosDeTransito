@@ -1,0 +1,69 @@
+.sinistros-table-wrapper {
+    overflow-x: auto;
+}
+
+.sinistros-sort-button {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-weight: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.sinistros-sort-button:focus-visible,
+.sinistros-pagination button:focus-visible {
+    outline: 2px solid #0d3b66;
+    outline-offset: 2px;
+}
+
+.sinistros-table {
+    min-width: 700px;
+}
+
+.sinistros-records-table .sinistros-sort-button {
+    white-space: nowrap;
+}
+
+.sinistros-records-table th:last-child,
+.sinistros-records-table td:last-child {
+    width: 130px;
+    white-space: nowrap;
+}
+
+.sinistros-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 10px;
+}
+
+.sinistros-pagination > div {
+    display: flex;
+    gap: 8px;
+}
+
+.sinistros-pagination button {
+    padding: 7px 12px;
+    border: 0;
+    border-radius: 5px;
+    background: #2bc86f;
+    color: white;
+    font: inherit;
+    cursor: pointer;
+}
+
+.sinistros-pagination button:disabled {
+    background: #aab4ae;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .sinistros-pagination {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

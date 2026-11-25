@@ -47,39 +47,3 @@
   background-color: #e1efff;
   transition: 0.2s;
 }
-
-/* Ajuste de responsividade */
-@media (max-width: 768px) {
-  .sinistros-table thead {
-    display: none;
-  }
-
-  .sinistros-table, 
-  .sinistros-table tbody, 
-  .sinistros-table tr, 
-  .sinistros-table td {
-    display: block;
-    width: 100%;
-  }
-
-  .sinistros-table tbody tr {
-    margin-bottom: 15px;
-    border-bottom: 2px solid #ddd;
-  }
-
-  .sinistros-table tbody td {
-    text-align: right;
-    padding-left: 50%;
-    position: relative;
-  }
-
-  .sinistros-table tbody td::before {
-    content: attr(data-label);
-    position: absolute;
-    left: 15px;
-    width: calc(50% - 30px);
-    text-align: left;
-    font-weight: 600;
-    color: #333;
-  }
-}

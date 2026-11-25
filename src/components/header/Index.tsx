@@ -13,7 +13,7 @@ export function Header(){
                 />
                 <div className='nameText'>
                     <h1 className='sitemTitle'>InfoTrânsito</h1>
-                    <h3 className='sistemDescripton'>Reporte de Sinistros de Trânsito Sem Feridos</h3>
+                    <h3 className='sistemDescripton'>Reporte de Sinistros de Trânsito</h3>
                 </div>
             </div>
             

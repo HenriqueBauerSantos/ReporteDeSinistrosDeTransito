@@ -114,7 +114,7 @@ export const SinistroForm = () => {
     return (
         <div className="sinistro-Form-component">
             <form className="app-container" onSubmit={handleSubmit(onSubmit)}>
-                <h2 className="sub-title">Dados do sinistro</h2>
+                <h2 className="sub-title page-title">Dados do sinistro</h2>
                 {apiError && <p role="alert">{apiError}</p>}
 
                 <div className="form-group">
@@ -215,7 +215,7 @@ export const SinistroForm = () => {
                     {errors.accidentState && <span style={{ color: "red" }}>Estado é obrigatório</span>}
                 </div>
 
-                <h2 className="sub-title">Localização do Acidente</h2>
+                <h2 className="sub-title page-title">Localização do Acidente</h2>
                 <div className="form-group">
                     <MapPicker onLocationSelect={handleLocationSelect} />
                     {lat && lng && <p>Latitude: {lat.toFixed(6)}, Longitude: {lng.toFixed(6)}</p>}

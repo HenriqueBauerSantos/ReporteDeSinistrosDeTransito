@@ -1,6 +1,21 @@
 .body-container{
     padding-bottom: 50px;
 }
+
+.body-content {
+    width: 100%;
+    min-width: 0;
+}
+
+.body-container .body-content > * {
+    margin: 0 auto;
+}
+
+.body-content .page-title {
+    color: #0d3b66;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .about-container {
     max-width: 900px;
     margin: 40px auto;

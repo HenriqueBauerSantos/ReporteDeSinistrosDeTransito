@@ -4,9 +4,7 @@ import Api, { getApiErrorMessage, getApiResponseList, type CustomResponse } from
 import "./Index.css"
 import { Accident } from "../../model/Accident";
 import { LoadingMessage } from "../LoadingMessage/Index";
-//Enums
-import { SinistroTypeLabel } from "../../enums/SinistroType";
-import { WeatherLabel } from "../../enums/Weather";
+import { SinistrosTable } from "../SinistrosTable/Index";
 
 export const SinistrosList = () => {
     const [sinistrosList, SetSinistrosList] = useState<Accident[]>([]);
@@ -53,7 +51,7 @@ export const SinistrosList = () => {
         return <LoadingMessage message="Carregando lista de sinistros" />;
     if (error) return <p role="alert">{error}</p>;
     if (sinistrosList.length === 0)
-        return <div className="sinistros-container"><h1>Lista de Sinistros</h1><p>Nenhum sinistro encontrado.</p></div>;
+        return <div className="sinistros-container"><h1 className="page-title">Lista de Sinistros</h1><p>Nenhum sinistro encontrado.</p></div>;
 
     const handleDetails = (id: string) => {
         navigate(`/sinistros/${id}`); // Vai para a rota de detalhes
@@ -61,41 +59,8 @@ export const SinistrosList = () => {
 
     return (
         <div className="sinistros-container">
-            <h1>Lista de Sinistros</h1>
-
-            <table className="sinistros-table">
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Feridos</th>
-                        <th>Tipo</th>
-                        <th>Clima</th>
-                        
-                        <th>Descrição</th>
-                        <th>Detalhes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {sinistrosList.map((s) => (
-                        <tr key={s.id}>
-                            <td>{new Date(s.date).toLocaleDateString()}</td>
-                            <td>{s.injuredPeople ? "Sim" : "Não"}</td>
-                            <td>{SinistroTypeLabel[s.sinistroType]}</td>
-                            <td>{WeatherLabel[s.weather]}</td>
-                            
-                            <td>{s.sinistroDescription}</td>
-                            <td>
-                                <button
-                                    onClick={() => handleDetails(s.id)}
-                                    className="btn-detalhes"
-                                >
-                                    Ver detalhes
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <h1 className="page-title">Lista de Sinistros</h1>
+            <SinistrosTable sinistros={sinistrosList} onDetails={handleDetails} />
         </div>
     );
 };
