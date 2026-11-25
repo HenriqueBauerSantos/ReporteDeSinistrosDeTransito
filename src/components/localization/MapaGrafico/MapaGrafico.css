@@ -1,0 +1,63 @@
+.sinistros-map-description {
+    margin: -8px 0 16px;
+    color: #52636b;
+    text-align: center;
+}
+
+.hex-map-legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 0 0 14px;
+    color: #263238;
+    font-size: 0.9rem;
+}
+
+.hex-map-legend-scale {
+    display: flex;
+    overflow: hidden;
+    width: 140px;
+    height: 12px;
+    border-radius: 999px;
+}
+
+.hex-map-legend-scale span {
+    flex: 1;
+    padding: 0;
+}
+
+.hex-map-legend > span {
+    padding: 0;
+}
+
+.hex-map-legend-scale span:nth-child(1) {
+    background: #fee08b;
+}
+
+.hex-map-legend-scale span:nth-child(2) {
+    background: #fdae61;
+}
+
+.hex-map-legend-scale span:nth-child(3) {
+    background: #f46d43;
+}
+
+.hex-map-legend-scale span:nth-child(4) {
+    background: #d73027;
+}
+
+.hex-map-legend-scale span:nth-child(5) {
+    background: #a50026;
+}
+
+.hex-map-cell-tooltip {
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    .hex-map-legend {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+}

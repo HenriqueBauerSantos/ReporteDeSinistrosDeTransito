@@ -56,6 +56,9 @@ export function Navbar() {
               {canAccessMap && (
                 <Link to="/mapaSinistros" className="nav-dropdown-item">Mapa de Sinistros</Link>
               )}
+              {canAccessMap && (
+                <Link to="/mapaGrafico" className="nav-dropdown-item">Mapa Gráfico</Link>
+              )}
               {canAccessDeletionRequests && (
                 <Link to="/sinistros/listaExclusaoSinistros" className="nav-dropdown-item">
                   Solicitações de exclusão
