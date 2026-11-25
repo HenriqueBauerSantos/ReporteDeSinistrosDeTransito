@@ -141,3 +141,32 @@
   outline: 2px solid #d1f0ff;
   outline-offset: 2px;
 }
+
+@media (max-width: 700px) {
+  .navbar {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 10px;
+  }
+
+  .nav-left {
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .nav-button {
+    padding: 8px 10px;
+    font-size: 0.95rem;
+  }
+
+  .nav-right {
+    margin-left: auto;
+  }
+
+  .login-button,
+  .logout-button {
+    padding: 8px 12px;
+    font-size: 0.95rem;
+  }
+}

@@ -66,6 +66,18 @@ article,
   }
 }
 
+@media (max-width: 600px) {
+  .stander-sinistro-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .stander-sinistro-header .btn-group {
+    padding-top: 0;
+  }
+}
+
 /* === ESTILOS DE FORMULÁRIOS === */
 .app-container {
   height: 100%;
@@ -87,12 +99,13 @@ article,
   display: flex;
   flex-direction: column;
   margin: 10px 0;
-  width: 500px;
+  width: min(100%, 500px);
+  min-width: 0;
 }
 
 .form-group label {
   font-weight: 500;
-  padding: 10px;
+  padding: 4px 0;
 }
 
 .form-group input,
@@ -123,6 +136,101 @@ textarea {
 
 .form-group button:hover {
   background-color: #0bb74e;
+}
+
+.sinistro-form-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  align-items: start;
+  justify-content: stretch;
+  gap: 16px;
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  min-width: 0;
+}
+
+.sinistro-form-layout > h2,
+.sinistro-form-layout > h3,
+.sinistro-form-layout > h4,
+.sinistro-form-layout > [role="alert"],
+.sinistro-form-layout > .form-group-wide,
+.sinistro-form-layout > .vehicle-person-manager,
+.sinistro-form-layout > .form-actions {
+  grid-column: 1 / -1;
+}
+
+.sinistro-form-layout > h2,
+.sinistro-form-layout > h3,
+.sinistro-form-layout > h4 {
+  margin: 0;
+  padding-top: 0;
+}
+
+.sinistro-form-layout > .form-section-title {
+  margin-top: 16px;
+  font-size: 1.5rem;
+  line-height: 1.3;
+}
+
+.sinistro-form-layout h2,
+.sinistro-form-layout h3,
+.sinistro-form-layout h4 {
+  color: #0d3b66;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+.sinistro-form-layout .vehicle-person-manager > h3 {
+  margin: 0 0 15px;
+  padding: 0;
+  border-left: 0;
+  color: #0d3b66;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+.sinistro-form-layout .form-group {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.sinistro-form-layout > .form-group-description {
+  max-width: 900px;
+  justify-self: center;
+}
+
+.sinistro-form-layout > .form-group-complement {
+  grid-column: span 2;
+}
+
+.sinistro-form-layout .address-complement-input {
+  height: 42px;
+  min-height: 42px;
+  padding: 8px 12px;
+  resize: vertical;
+}
+
+.sinistro-form-layout > .form-submit {
+  max-width: 280px;
+  justify-self: center;
+}
+
+.sinistro-form-layout > .vehicle-person-manager {
+  margin-top: 8px;
+}
+
+.sinistro-form-layout input,
+.sinistro-form-layout select,
+.sinistro-form-layout textarea {
+  min-width: 0;
+}
+
+@media (max-width: 600px) {
+  .sinistro-form-layout > .form-group-complement {
+    grid-column: span 1;
+  }
 }
 
 /* === GRUPO DE CHECKBOX === */

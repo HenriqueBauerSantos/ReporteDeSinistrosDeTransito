@@ -140,7 +140,7 @@ export const SinistroEdit = () => {
                 </div>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form className="sinistro-form-layout" onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group">
                     <label>Data:</label>
                     <input type="date" {...register("date", { required: true })} />
@@ -200,7 +200,7 @@ export const SinistroEdit = () => {
                     errors={errors}
                 />
 
-                <div className="form-group">
+                <div className="form-group form-group-wide">
                     <label>Descrição:</label>
                     <textarea {...register("accidentDescription", { required: true })} />
                 </div>
@@ -215,8 +215,7 @@ export const SinistroEdit = () => {
                     onAddVehicle={() => setShowVehicleForm(true)}
                 />
 
-                <br />
-                <div className="form-group" style={{ marginTop: "20px" }}>
+                <div className="form-group form-group-wide">
                     <button type="submit">Salvar Alterações</button>
                 </div>
             </form>

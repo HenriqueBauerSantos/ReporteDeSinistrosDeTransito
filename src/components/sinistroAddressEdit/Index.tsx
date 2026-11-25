@@ -172,8 +172,7 @@ export const SinistroAddressEdit = () => {
                 </div>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <br />
+            <form className="sinistro-form-layout" onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group">
                     <label>Rua:</label>
                     <input type="text" {...register("accidentRoad", { required: true })} />
@@ -184,11 +183,6 @@ export const SinistroAddressEdit = () => {
                     <label>Número:</label>
                     <input type="text" {...register("accidentNumber", { required: true })} />
                     {errors.accidentNumber && <span style={{ color: "red" }}>Número do enderoço é obrigatório</span>}
-                </div>
-
-                <div className="form-group">
-                    <label>Complemento:</label>
-                    <textarea {...register("accidentAddressComplement")} />
                 </div>
 
                 <div className="form-group">
@@ -215,8 +209,17 @@ export const SinistroAddressEdit = () => {
                     {errors.accidentState && <span style={{ color: "red" }}>Estado é obrigatório</span>}
                 </div>
 
-                <h3 className="sub-title">Localização no Mapa</h3>
-                <div className="form-group">
+                <div className="form-group form-group-complement">
+                    <label>Complemento:</label>
+                    <textarea
+                        className="address-complement-input"
+                        rows={1}
+                        {...register("accidentAddressComplement")}
+                    />
+                </div>
+
+                <h3 className="sub-title page-title form-section-title">Localização do Sinistro</h3>
+                <div className="form-group form-group-wide">
                     <MapPicker
                         onLocationSelect={handleLocationSelect}
                         initialLat={lat}
@@ -235,8 +238,7 @@ export const SinistroAddressEdit = () => {
                 </div>
 
 
-                <br />
-                <div className="form-group" style={{ marginTop: "20px" }}>
+                <div className="form-group form-group-wide">
                     <button type="submit">Salvar Alterações</button>
                 </div>
             </form>

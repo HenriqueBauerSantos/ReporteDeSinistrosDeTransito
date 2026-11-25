@@ -78,9 +78,7 @@ export const VehicleForm = ({ onSave, onCancel }: { onSave: (v: Vehicle, p: Pers
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="app-container">
-            <br />
-
+        <form onSubmit={handleSubmit(onSubmit)} className="app-container sinistro-form-layout">
             <h3>Adicionar Veículo</h3>
 
             <div className="form-group">
@@ -270,7 +268,7 @@ export const VehicleForm = ({ onSave, onCancel }: { onSave: (v: Vehicle, p: Pers
                 {errors.personState?.type === 'required' && <span style={{ color: "red" }}>Estado é obrigatório</span>}
             </div>
 
-            <div className="form-actions">
+            <div className="form-actions form-group-wide">
                 <button type="submit">Salvar Veículo</button>
                 <button type="button" onClick={onCancel}>Cancelar</button>
             </div>

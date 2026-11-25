@@ -113,8 +113,8 @@ export const SinistroForm = () => {
 
     return (
         <div className="sinistro-Form-component">
-            <form className="app-container" onSubmit={handleSubmit(onSubmit)}>
-                <h2 className="sub-title page-title">Dados do sinistro</h2>
+            <form className="app-container sinistro-form-layout" onSubmit={handleSubmit(onSubmit)}>
+                <h2 className="sub-title page-title form-section-title">Dados do sinistro</h2>
                 {apiError && <p role="alert">{apiError}</p>}
 
                 <div className="form-group">
@@ -171,7 +171,7 @@ export const SinistroForm = () => {
                     register={register}
                     errors={errors} />
 
-                <h3 className="sub-title">Endereço do Acidente</h3>
+                <h3 className="sub-title page-title form-section-title">Endereço do Sinistro</h3>
 
                 <div className="form-group">
                     <label>Rua:</label>
@@ -183,11 +183,6 @@ export const SinistroForm = () => {
                     <label>Número:</label>
                     <input type="text" {...register("accidentNumber", { required: true })} />
                     {errors.accidentNumber && <span style={{ color: "red" }}>Número do endereço é obrigatória</span>}
-                </div>
-
-                <div className="form-group">
-                    <label>Complemento:</label>
-                    <textarea {...register("accidentAddressComplement")} placeholder="Complemento" />
                 </div>
 
                 <div className="form-group">
@@ -215,8 +210,18 @@ export const SinistroForm = () => {
                     {errors.accidentState && <span style={{ color: "red" }}>Estado é obrigatório</span>}
                 </div>
 
-                <h2 className="sub-title page-title">Localização do Acidente</h2>
-                <div className="form-group">
+                <div className="form-group form-group-complement">
+                    <label>Complemento:</label>
+                    <textarea
+                        className="address-complement-input"
+                        rows={1}
+                        {...register("accidentAddressComplement")}
+                        placeholder="Complemento"
+                    />
+                </div>
+
+                <h2 className="sub-title page-title form-section-title">Localização do Sinistro</h2>
+                <div className="form-group form-group-wide">
                     <MapPicker onLocationSelect={handleLocationSelect} />
                     {lat && lng && <p>Latitude: {lat.toFixed(6)}, Longitude: {lng.toFixed(6)}</p>}
                 </div>
@@ -224,8 +229,8 @@ export const SinistroForm = () => {
                 <input type="hidden" {...register("latitude", { valueAsNumber: true, required: true })} />
                 <input type="hidden" {...register("longitude", { valueAsNumber: true })} />
 
-                <div className="form-group">
-                    <label>Descrição do acidente:</label>
+                <div className="form-group form-group-wide form-group-description">
+                    <label>Descrição do Sinistro:</label>
                     <textarea {...register("accidentDescription", { required: true })} />
                 </div>
 
@@ -240,7 +245,7 @@ export const SinistroForm = () => {
                     onAddVehicle={() => setShowVehicleForm(true)}
                 />
 
-                <div className="form-group">
+                <div className="form-group form-group-wide form-submit">
                     <button type="submit">Cadastrar Sinistro</button>
                 </div>
             </form>
