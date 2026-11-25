@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
     Api,
     getApiErrorMessage,
@@ -14,6 +14,7 @@ type LoginResponseData = {
     expiresIn: number;
     userToken: {
         id: string;
+        name: string;
         email: string;
         claims: unknown;
     };
@@ -72,6 +73,10 @@ export function LoginPage() {
 
                     <button type="submit">Entrar</button>
                 </form>
+
+                <Link to="/criar-conta" className="auth-link-button">
+                    Criar conta
+                </Link>
             </div>
         </div>
     );

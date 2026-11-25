@@ -7,6 +7,7 @@ import { SinistroDetails } from '../sinistroDetails/Index';
 import { SinistroEdit } from '../sinistroEdit/Index';
 import { SinistroAddressEdit } from '../sinistroAddressEdit/Index';
 import { LoginPage } from '../../pages/LoginPage/LoginPage';
+import { RegisterPage } from '../../pages/RegisterPage/RegisterPage';
 import { SinistrosSolicitacaoList } from '../SinistrosSolicitacaoList/SinistrosSolicitacaoList';
 import { SinistrosUserList } from '../sinistrosUserList/Index';
 import { MapaSinistros } from '../localization/MapaSinistros/MapaSinistros';
@@ -20,6 +21,7 @@ export function Body(){
             <div className="body-content">
                 <Routes>
                     <Route path="/login" element={<LoginPage />} />
+                    <Route path="/criar-conta" element={<RegisterPage />} />
 
                     <Route path="/sobre" element={<About />} />
                     <Route path="/cadastro" element={<SinistroForm />} />
